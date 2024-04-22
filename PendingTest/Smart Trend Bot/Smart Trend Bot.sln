@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smart Trend Bot", "Smart Trend Bot\Smart Trend Bot.csproj", "{B5EA61F7-DB54-4AE2-AB9D-676C459E2E04}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B5EA61F7-DB54-4AE2-AB9D-676C459E2E04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5EA61F7-DB54-4AE2-AB9D-676C459E2E04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5EA61F7-DB54-4AE2-AB9D-676C459E2E04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5EA61F7-DB54-4AE2-AB9D-676C459E2E04}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
+
+
+
+
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeanReversion", "..\..\Indicators\MeanReversion\MeanReversion\MeanReversion.csproj", "{2722154C-C4C3-4A61-9AD0-30261A98E592}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SR At Price", "..\..\Indicators\SR At Price\SR At Price\SR At Price.csproj", "{2BDD0A9D-C5D2-421E-9239-8AA7C89B1141}"
+EndProject
