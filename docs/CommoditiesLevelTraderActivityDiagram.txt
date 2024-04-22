@@ -1,0 +1,84 @@
+@startuml
+
+skin rose
+
+title CommoditiesLevelTrader_cBot - Activity Diagram
+
+start
+:Validate inputs;
+if (errors == 0) then (yes)
+  :Print "Validation successfull";
+else (no)
+  :Print "Validation input parameter errors";
+  stop
+endif
+
+:Compute trade properties;
+note left: Compute ProfitTarget, beforeEntryPrice, Amount
+
+:Validate computed trade properties;
+if (errors == 0) then (yes)
+  :Print "Validation successfull";
+else (no)
+  :Print "Validation input parameter errors";
+  stop
+endif
+
+
+repeat
+if (Was order expired?) then (yes)
+  :Print "Time of trade expired, bot will stop.";
+  stop
+else (no)
+  :Print "Order is valid";
+
+endif
+note left: ExpirationDate != null && DateTime.Now > ExpirationDate
+
+
+if (Was reach profit target?) then (yes)
+  :Print "Price reach ProfitTargetPrice.";
+  :Set variable ReachProfitTarget to true;
+  :Set variable ReachProfitTargetTimestamp to Now;
+else (no)
+endif
+note left: !ReachProfitTarget && WasReachProfitTarget(lastBar)
+
+if (Was reach before entry price?) then (yes)
+  :Print "Price reach beforeEntryPrice.";
+  :Set variable ReachBeforeEntryPrice to true;
+  :Set variable ReachBeforeEntryPriceTimestamp to now;
+  if (CountOpenTrades() >= MaxAllowedOpenTrades) then (yes)
+    :Print "On exchange is open max allowed trades, order do not place on exchange.";
+    stop
+  else (no)
+  endif
+  if (Time delay less then limit) then (yes)
+    :Print "Most fast movement to level, order do not place on exchange.";
+    stop
+  else (no)
+  endif
+  note left: ReachBeforeEntryPriceTimestamp.Subtract(ReachProfitTargetTimestamp).TotalMinutes < PlaceTradeDelayInMinutes
+  :Place Limit order on exchange;
+else (no)
+endif
+note left: ReachProfitTarget && !ReachBeforeEntryPrice && WasReachBeforeEntryPrice(lastBar)
+
+if (Was reach profit target after before entry price?) then (yes)
+  :Print "Price reach profit target after hit beforeEntryPrice.";
+  :Print "Cancel pending order if exist.";
+  :CancelLimitOrder;
+  stop
+else (no)
+endif
+note left: ReachBeforeEntryPrice && WasReachProfitTargetAfterBeforeEntryPrice(lastBar)
+
+if (Was reach before entry price and not pending order is active?) then (yes)
+  :Print "Pending order was activate.";
+  stop
+else (no)
+endif
+repeat while (User terminate)
+stop
+
+@enduml

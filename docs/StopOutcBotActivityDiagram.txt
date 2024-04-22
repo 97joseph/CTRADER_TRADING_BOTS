@@ -1,0 +1,25 @@
+@startuml
+
+skin rose
+
+title StopOut_cBot - Activity diagram \n
+
+start
+note left
+    Run every minute (on bar method)
+end note
+
+if ( Account.Equity > EquityStopOut ) then (yes)
+  :Print "Sufficient equity for trading." ;
+else (no)
+  :Print "Unsufficient equity for trading.";
+  :Close all positions;
+  :Cancel all pending orders;
+endif
+
+note left
+    Check sufficient equity for trading
+end note
+
+stop
+@enduml
